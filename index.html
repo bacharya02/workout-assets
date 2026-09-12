@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual Exercise Directory & Form Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #131b2e;
+      --card-border: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.15);
+      --micro: #22c55e;
+      --micro-bg: rgba(34, 197, 94, 0.12);
+      --blue: #3b82f6;
+      --purple: #a855f7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 30px 20px;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .badge-hip {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 4px 14px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 999px;
+      color: #38bdf8;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .filter-btn {
+      padding: 8px 18px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: var(--text);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: #0284c7;
+      border-color: #38bdf8;
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: #38bdf8;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5), 0 0 15px var(--accent-glow);
+    }
+
+    .card.is-micro {
+      border-left: 4px solid var(--micro);
+    }
+
+    .card-img-container {
+      width: 100%;
+      height: 220px;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-bottom: 1px solid var(--card-border);
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    .card-img {
+      max-height: 95%;
+      max-width: 95%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+    }
+
+    .card-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(4px);
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      z-index: 2;
+    }
+
+    .micro-pill {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--micro-bg);
+      border: 1px solid var(--micro);
+      color: var(--micro);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      z-index: 2;
+    }
+
+    .card-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #ffffff;
+    }
+
+    .card-muscles {
+      color: #a5b4fc;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .card-cues {
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+      margin-bottom: 14px;
+      background: #0f172a;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border-left: 3px solid #38bdf8;
+      flex-grow: 1;
+    }
+
+    .card-why {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-bottom: 16px;
+    }
+
+    .btn-video {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: background 0.2s;
+      text-align: center;
+    }
+
+    .btn-video:hover {
+      background: #1d4ed8;
+    }
+
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Visual Exercise Directory & Form Guide</h1>
+      <p class="subtitle">Complete visual breakdowns, setup cues, and 1-click video tutorials</p>
+      <div class="badge-hip">✓ 100% Hip-Protected & Joint-Centrated Routine</div>
+    </header>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCategory('all', this)">All Movements</button>
+      <button class="filter-btn" onclick="filterCategory('Pull A', this)">Pull A</button>
+      <button class="filter-btn" onclick="filterCategory('Push A', this)">Push A</button>
+      <button class="filter-btn" onclick="filterCategory('Legs A', this)">Legs A</button>
+      <button class="filter-btn" onclick="filterCategory('Pull B', this)">Pull B</button>
+      <button class="filter-btn" onclick="filterCategory('Push B', this)">Push B</button>
+      <button class="filter-btn" onclick="filterCategory('Legs B', this)">Legs B</button>
+      <button class="filter-btn" onclick="filterCategory('micro', this)">★ Micro-Links</button>
+      <button class="filter-btn" style="border-color: #3b82f6;" onclick="filterCategory('Pull Day', this)">🔵 Pull Warmup & Stretch</button>
+      <button class="filter-btn" style="border-color: #a855f7;" onclick="filterCategory('Push Day', this)">🔴 Push Warmup & Stretch</button>
+      <button class="filter-btn" style="border-color: #10b981;" onclick="filterCategory('Leg Day', this)">🟢 Leg Warmup & Stretch</button>
+      <button class="filter-btn" style="border-color: #f59e0b;" onclick="filterCategory('Rest Day Master', this)">⭐ Rest Day Master Flow</button>
+    </div>
+
+    <div class="grid" id="exerciseGrid"></div>
+  </div>
+
+  <script>
+    const cdn = "https://cdn.jsdelivr.net/gh/bacharya02/workout-assets@main/images/";
+
+    const exercises = [
+      // PULL A
+      {
+        cat: "Pull A",
+        name: "45° Hyperextension / Back Extension",
+        muscles: "Glutes, Hamstrings, Lower Back",
+        img: cdn + "back-extension-peak.webp",
+        query: "how+to+do+45+degree+back+extension+for+glutes",
+        cues: "Set pad right below hip crease. Round upper back slightly to bias glutes and hamstrings. Hinge down, squeeze glutes hard to lift torso to straight line. Do NOT hyperextend lower back.",
+        why: "Zero compressive axial loading on the hip socket; safely overloads the posterior chain."
+      },
+      {
+        cat: "Pull A",
+        name: "Neutral-Grip Lat Pulldown",
+        muscles: "Lats (Latissimus Dorsi), Biceps",
+        img: cdn + "close-grip-lat-pulldown-peak.webp",
+        query: "how+to+do+neutral+grip+lat+pulldown",
+        cues: "Use parallel/neutral handles (palms facing each other). Lean back 10–15°. Pull elbows straight down toward hips, bringing handles to collarbone. Squeeze lats 1s, control return.",
+        why: "Neutral grip spares shoulder joints and maximally recruits the lats."
+      },
+      {
+        cat: "Pull A",
+        name: "Single-Arm Neutral Cable Row",
+        muscles: "Lower & Mid Lats, Rhomboids",
+        img: cdn + "bent-over-db-row-peak.webp",
+        query: "how+to+do+single+arm+cable+row+lat+bias",
+        cues: "Cable at belly-button height. Sit tall. Reach forward to stretch the lat, then drive elbow back skimming your ribs. Keep chest proud—avoid excessive torso rotation.",
+        why: "Full lat stretch and contraction with 0% spinal or hip compression."
+      },
+      {
+        cat: "Pull A",
+        name: "Cable Face Pulls",
+        muscles: "Rear Delts, Rotator Cuff, Upper Traps",
+        img: cdn + "dumbbell-face-pull-peak.webp",
+        query: "how+to+do+face+pulls+proper+form",
+        cues: "Set rope at eye height with thumbs backward. Pull hands toward ears while pulling rope ends apart. Rotate wrists back so knuckles face behind you at peak contraction.",
+        why: "Crucial posture builder and rotator cuff external rotation."
+      },
+      {
+        cat: "Pull A",
+        name: "Incline Dumbbell Curls",
+        muscles: "Biceps (Long Head Stretch)",
+        img: cdn + "incline-db-curl-peak.webp",
+        query: "how+to+do+incline+dumbbell+curls",
+        cues: "Set bench to 60°. Lean back and let arms hang straight down behind your torso. Curl up while keeping elbows pinned in place. Full stretch at bottom.",
+        why: "Places biceps in a full deep stretch for superior hypertrophy."
+      },
+      {
+        cat: "Pull A",
+        name: "Dumbbell Hammer Curls",
+        muscles: "Brachialis, Brachioradialis",
+        img: cdn + "hammer-curl-peak.webp",
+        query: "how+to+do+hammer+curls",
+        cues: "Hold dumbbells with neutral grip (palms facing each other like holding a hammer). Curl upward without swinging your torso. Lower with control.",
+        why: "Builds forearm thickness and pushes the bicep peak upward."
+      },
+      {
+        cat: "Pull A",
+        name: "Reverse Wrist Extensor Curls",
+        muscles: "★ Forearm Extensors",
+        img: cdn + "barbell-wrist-curl-peak.webp",
+        query: "how+to+do+reverse+wrist+curls",
+        cues: "Rest forearms flat on bench or thighs with palms facing DOWN. Let hands hang off edge, then extend wrists upward toward ceiling. Slow controlled reps.",
+        why: "★ MICRO-LINK: Balances heavy pulling grip and prevents tennis elbow (lateral epicondylitis).",
+        isMicro: true
+      },
+      {
+        cat: "Pull A",
+        name: "Pallof Press",
+        muscles: "Core (Transverse Abdominis, Obliques)",
+        img: cdn + "cable-pallof-press-peak.webp",
+        query: "how+to+do+pallof+press",
+        cues: "Stand sideways to cable machine. Hold handle at center of chest with both hands. Press straight out away from body; resist the cable's attempt to rotate you. Hold 2s, return.",
+        why: "Anti-rotation core power with 0% rotational torque on the hip socket."
+      },
+      {
+        cat: "Pull A",
+        name: "Deadbugs",
+        muscles: "Deep Core, Anti-Extension",
+        img: cdn + "dead-bug-hold-main.webp",
+        query: "how+to+do+deadbug+exercise",
+        cues: "Lie flat on back. Push lower back firmly into the floor (no gap!). Arms straight up, knees at 90°. Slowly extend right arm overhead and left leg straight out. Return and alternate.",
+        why: "Strengthens abdominal wall with zero hip flexor yanking or spinal shear."
+      },
+
+      // PUSH A
+      {
+        cat: "Push A",
+        name: "Shoulder External Rotations",
+        muscles: "★ Rotator Cuff (Infraspinatus, Teres Minor)",
+        img: cdn + "cable-external-rotation-peak.webp",
+        query: "cable+shoulder+external+rotation+elbow+at+side",
+        cues: "Stand sideways to cable at elbow height. Keep elbow pinned tightly to your side at 90°. Rotate forearm outward away from stomach. Smooth, slow reps.",
+        why: "★ MICRO-LINK: Strengthens the small stabilizers that prevent rotator cuff tears.",
+        isMicro: true
+      },
+      {
+        cat: "Push A",
+        name: "Flat Bench Press (Barbell or DB)",
+        muscles: "Chest, Front Delts, Triceps",
+        img: cdn + "bench-press-peak.webp",
+        query: "how+to+flat+bench+press+proper+form",
+        cues: "Lie on bench with eyes under bar. Grip slightly outside shoulder width. Squeeze shoulder blades together and down. Lower bar to mid-chest, press up in a slight backward arc.",
+        why: "Primary upper body horizontal pushing compound."
+      },
+      {
+        cat: "Push A",
+        name: "Standing Overhead Press",
+        muscles: "Shoulders, Triceps, Upper Chest",
+        img: cdn + "behind-the-neck-press-peak.webp",
+        query: "how+to+overhead+press+proper+form",
+        cues: "Grip bar just outside shoulders. Brace core and squeeze glutes tight. Press bar straight up overhead, moving chin back as bar passes, then locking out with bar over mid-foot.",
+        why: "Pure vertical pushing strength and core stability."
+      },
+      {
+        cat: "Push A",
+        name: "Incline Dumbbell Press",
+        muscles: "Upper Chest (Clavicular Head), Front Delts",
+        img: cdn + "incline-bench-press-peak.webp",
+        query: "how+to+incline+dumbbell+press",
+        cues: "Set bench to 30–45°. Press dumbbells up over upper chest with palms angled at ~45°. Lower with control until dumbbells touch outside of chest.",
+        why: "Targets upper chest fibers to fill out the collarbone region."
+      },
+      {
+        cat: "Push A",
+        name: "Pec Deck or Cable Chest Flyes",
+        muscles: "Chest (Inner/Sternal Head Isolation)",
+        img: cdn + "cable-fly-peak.webp",
+        query: "how+to+use+pec+deck+machine+chest+fly",
+        cues: "Adjust seat so handles are at mid-chest height. Keep slight bend in elbows. Bring hands together in front like hugging a barrel. Squeeze chest hard for 1s.",
+        why: "Direct chest adduction in fully stretched and contracted positions."
+      },
+      {
+        cat: "Push A",
+        name: "Triceps Rope Pushdowns",
+        muscles: "Triceps (Lateral & Medial Heads)",
+        img: cdn + "banded-triceps-stretch-main.webp",
+        query: "how+to+tricep+rope+pushdown",
+        cues: "Pin elbows to ribcage. Push rope downward and flare the ends outward at the bottom. Squeeze triceps, then return to 90° with control.",
+        why: "Isolates the triceps without stressing wrists or elbows."
+      },
+      {
+        cat: "Push A",
+        name: "Cable Lateral Raises",
+        muscles: "Side Deltoids (Lateral Cap)",
+        img: cdn + "cable-lateral-raise-peak.webp",
+        query: "how+to+cable+lateral-raise",
+        cues: "Set cable at lowest setting. Stand tall, raise cable handle out to side up to shoulder level. Lead slightly with elbow. Cable provides constant tension unlike dumbbells.",
+        why: "Creates round shoulder width with continuous resistance curve."
+      },
+      {
+        cat: "Push A",
+        name: "Push-Up Plus / Serratus Punches",
+        muscles: "★ Serratus Anterior",
+        img: cdn + "archer-push-ups-peak.webp",
+        query: "how+to+do+push+up+plus+for+serratus",
+        cues: "In a push-up or high plank position (arms straight). Without bending your elbows, push your upper back toward the ceiling, spreading shoulder blades wide apart. Hold 2s, relax.",
+        why: "★ MICRO-LINK: Prevents shoulder impingement and scapular winging.",
+        isMicro: true
+      },
+      {
+        cat: "Push A",
+        name: "Plank Holds",
+        muscles: "Anterior Core & Transverse Abdominis",
+        img: cdn + "plank-main.webp",
+        query: "how+to+proper+plank+form",
+        cues: "Rest on forearms and toes. Tuck pelvis slightly (posterior tilt), squeeze glutes, brace abs as if someone is about to punch your stomach. Breathe through your nose.",
+        why: "Strengthens the abdominal brace without flexing or pinching the hips."
+      },
+
+      // LEGS A
+      {
+        cat: "Legs A",
+        name: "Heavy Leg Extensions",
+        muscles: "Quadriceps (All 4 heads)",
+        img: cdn + "leg-extension-peak.webp",
+        query: "how+to+do+leg+extensions+proper+form",
+        cues: "Align knee joint with machine pivot point. Back flat against pad. Extend legs smoothly to lockout, pause 1s at top, lower under control for 2 full seconds.",
+        why: "Pure quad hypertrophy without ANY compressive load on the hip joint."
+      },
+      {
+        cat: "Legs A",
+        name: "Hip Thrust / Glute Drive Machine",
+        muscles: "Gluteus Maximus",
+        img: cdn + "hip-thrust-peak.webp",
+        query: "how+to+do+hip+thrust+machine",
+        cues: "Place pad/belt over hips, upper back on pad. Feet shoulder-width. Drive through heels to full hip extension (flat 0° angle). Squeeze glutes at top. Chin tucked.",
+        why: "Highest glute activation possible; zero socket impingement because load peaks at extension."
+      },
+      {
+        cat: "Legs A",
+        name: "Lying or Standing Leg Curls",
+        muscles: "Hamstrings (Knee Flexion)",
+        img: cdn + "ball-leg-curl-peak.webp",
+        query: "how+to+do+lying+leg+curls",
+        cues: "Pad rests on lower calves just above heels. Keep hips pressed flat into bench (don't arch back). Curl heels toward glutes, pause, and lower slowly.",
+        why: "Direct hamstring knee flexion isolation with zero hip compression."
+      },
+      {
+        cat: "Legs A",
+        name: "Hip Abduction Machine",
+        muscles: "Gluteus Medius & Outer Hip",
+        img: cdn + "banded-seated-hip-abduction-peak.webp",
+        query: "how+to+use+hip+abduction+machine",
+        cues: "Sit upright with pads on outside of knees. Push knees outward against resistance as far as possible. Hold for 2s at peak spread, then slow return.",
+        why: "Strengthens lateral pelvic stabilizers."
+      },
+      {
+        cat: "Legs A",
+        name: "Banded Clamshells",
+        muscles: "★ Deep 6 Hip Rotators (Hip Rotator Cuff)",
+        img: cdn + "banded-clamshell-peak.webp",
+        query: "how+to+do+clamshells+exercise+glutes",
+        cues: "Lie on side with loop band above knees. Knees bent 45°, feet glued together. Keeping feet touching, rotate top knee open toward ceiling without letting pelvis roll backward. Hold 2s.",
+        why: "★ MICRO-LINK: Fires the gemelli, obturators, and piriformis to keep the ball centered in the socket.",
+        isMicro: true
+      },
+      {
+        cat: "Legs A",
+        name: "Standing Calf Raises",
+        muscles: "Gastrocnemius (Upper Calf)",
+        img: cdn + "barbell-calf-raise-peak.webp",
+        query: "how+to+standing+calf+raises",
+        cues: "Knees kept completely straight. Balls of feet on edge of block. Drop heels for full stretch, then press up high onto big toes. Pause 2s at the top.",
+        why: "Straight knee targets the large gastrocnemius calf muscle."
+      },
+      {
+        cat: "Legs A",
+        name: "Tibialis Wall Raises",
+        muscles: "★ Tibialis Anterior (Shins)",
+        img: cdn + "bodyweight-calf-raise-peak.webp",
+        query: "how+to+do+tibialis+raises+against+wall",
+        cues: "Lean buttocks flat against wall, feet ~12–18 inches out in front with legs straight. Flex toes upward toward shins as high as possible. Pause, lower, repeat.",
+        why: "★ MICRO-LINK: Balances calves, absorbs walking impact, and stabilizes knees & hips.",
+        isMicro: true
+      },
+      {
+        cat: "Legs A",
+        name: "Standing Psoas Isometric March",
+        muscles: "★ Psoas Major (Deep Hip Flexor)",
+        img: cdn + "high-knees-main.webp",
+        query: "psoas+march+isometric+hold",
+        cues: "Stand tall near wall. Lift knee up until thigh is above 90° (above parallel). Place hand on knee and press down firmly while pushing up with knee for 5s hold. 0 movement.",
+        why: "★ MICRO-LINK: Activates deep psoas in its pure functional zone above 90° with ZERO joint shear.",
+        isMicro: true
+      },
+      {
+        cat: "Legs A",
+        name: "Ab Wheel Rollouts",
+        muscles: "Core (Rectus Abdominis & Lats)",
+        img: cdn + "ab-wheel-rollout-peak.webp",
+        query: "how+to+do+ab+wheel+rollout+proper+form",
+        cues: "Kneel on pad. Squeeze glutes and round upper back slightly (hollow body). Roll wheel forward slowly only as far as you can maintain a flat back. Pull back using abs, not hips.",
+        why: "Top tier anti-extension core strength without hip flexor yanking."
+      },
+
+      // PULL B
+      {
+        cat: "Pull B",
+        name: "Chest-Supported T-Bar / Incline DB Row",
+        muscles: "Upper Back, Rhomboids, Lats",
+        img: cdn + "barbell-row-peak.webp",
+        query: "how+to+chest+supported+t+bar+row",
+        cues: "Lie chest-down on incline bench or machine pad. Grab handles with overhand or neutral grip. Pull elbows backward past your torso, squeezing shoulder blades together.",
+        why: "Completely eliminates lower back and hip socket fatigue while blasting the upper back."
+      },
+      {
+        cat: "Pull B",
+        name: "Wide-Grip Lat Pulldown",
+        muscles: "Upper Lats, Teres Major",
+        img: cdn + "lat-pulldown-peak.webp",
+        query: "how+to+wide+grip+lat+pulldown",
+        cues: "Grip bar ~1.5x shoulder width. Sit under thigh pads. Pull bar down to upper chest, leading with elbows. Focus on spreading lats wide at top.",
+        why: "Builds upper back V-taper width."
+      },
+      {
+        cat: "Pull B",
+        name: "Rear Delt Pec Deck / Face Pulls",
+        muscles: "Posterior Deltoids",
+        img: cdn + "dumbbell-reverse-fly-peak.webp",
+        query: "how+to+reverse+pec+deck+rear+delt+fly",
+        cues: "Sit facing machine pad. Handles at shoulder height. Keeping elbows slightly bent, fly arms backward in a wide horizontal arc. Squeeze rear delts at peak.",
+        why: "Fixes rounded forward shoulders and bulletproofs the upper back."
+      },
+      {
+        cat: "Pull B",
+        name: "Dumbbell or Barbell Shrugs",
+        muscles: "Upper Trapezius",
+        img: cdn + "behind-the-back-barbell-shrug-peak.webp",
+        query: "how+to+do+dumbbell+shrugs+proper+form",
+        cues: "Hold dumbbells at sides. Elevate shoulders straight up toward ears. Hold 1s at top. Lower slowly. Do NOT roll shoulders backward or forward.",
+        why: "Builds neck and upper trapezius thickness."
+      },
+      {
+        cat: "Pull B",
+        name: "Preacher or Machine Curls",
+        muscles: "Biceps (Short Head / Peak)",
+        img: cdn + "barbell-preacher-curl-peak.webp",
+        query: "how+to+preacher+curl+proper+form",
+        cues: "Armpits snug against top of pad. Keep upper arms completely glued to pad. Curl bar up to chin height, contract bicep hard, lower with control.",
+        why: "Eliminates all shoulder momentum and isolates the bicep completely."
+      },
+      {
+        cat: "Pull B",
+        name: "Reverse-Grip Cable Curls",
+        muscles: "Brachioradialis & Forearms",
+        img: cdn + "db-reverse-curl-peak.webp",
+        query: "how+to+reverse+grip+cable+curl",
+        cues: "Attach straight or EZ bar to low cable. Grip overhand (palms facing down). Curl bar upward toward collarbones. Keep wrists rigid and straight throughout.",
+        why: "Builds dense outer forearms and strengthens elbow joints."
+      },
+      {
+        cat: "Pull B",
+        name: "Suitcase Carries (Single-Arm)",
+        muscles: "Obliques, QL, Grip, Pelvic Stabilizers",
+        img: cdn + "dumbbell-farmers-walk-main.webp",
+        query: "how+to+do+suitcase+carries",
+        cues: "Hold a heavy dumbbell in ONE hand only like a suitcase. Stand tall with shoulders level. Walk forward slowly; resist leaning or tilting toward the weight.",
+        why: "Elite anti-lateral flexion core and single-leg hip stability exercise."
+      },
+
+      // PUSH B
+      {
+        cat: "Push B",
+        name: "Cable Shoulder External Rotations",
+        muscles: "★ Shoulder Rotator Cuff",
+        img: cdn + "cable-external-rotation-peak.webp",
+        query: "cable+external+rotation+rotator+cuff",
+        cues: "Elbow tucked into side at 90° with towel under arm. Rotate hand outward away from body. Smooth, slow reps.",
+        why: "★ MICRO-LINK: Warms up and protects rotator cuff before heavy overhead pressing.",
+        isMicro: true
+      },
+      {
+        cat: "Push B",
+        name: "Seated or Standing Overhead Press",
+        muscles: "Shoulders, Triceps",
+        img: cdn + "bodyweight-overhead-press-peak.webp",
+        query: "how+to+seated+dumbbell+shoulder+press",
+        cues: "Press dumbbells or barbell straight up until arms are fully extended overhead. Lower dumbbells to ear level under control.",
+        why: "Primary vertical push for full shoulder cap development."
+      },
+      {
+        cat: "Push B",
+        name: "Incline Barbell or Dumbbell Press",
+        muscles: "Upper Pectorals",
+        img: cdn + "incline-bench-press-peak.webp",
+        query: "how+to+incline+bench+press",
+        cues: "Bench at 30°. Lower bar to upper chest smoothly, press up locking out with chest flexed.",
+        why: "Upper chest focus with barbell or dumbbell variety."
+      },
+      {
+        cat: "Push B",
+        name: "Assisted Dips or Close-Grip Push-ups",
+        muscles: "Lower Chest, Triceps",
+        img: cdn + "assisted-dips-peak.webp",
+        query: "how+to+do+dips+proper+form",
+        cues: "Lean torso forward 15–20° for chest emphasis. Lower until elbows hit 90°. Press through palms back to top lockout.",
+        why: "Excellent compound builder for lower chest and triceps."
+      },
+      {
+        cat: "Push B",
+        name: "Dumbbell Lateral Raises",
+        muscles: "Side Deltoids",
+        img: cdn + "seated-dumbbell-lateral-raise-peak.webp",
+        query: "how+to+do+dumbbell+lateral+raise",
+        cues: "Slight forward torso hinge. Raise dumbbells out to sides leading with elbows. Imagine pouring water from a pitcher at top. Pause and lower.",
+        why: "Standard lateral head shoulder builder."
+      },
+      {
+        cat: "Push B",
+        name: "Overhead Cable Triceps Extensions",
+        muscles: "Triceps (Long Head)",
+        img: cdn + "kettlebell-overhead-tricep-extension-peak.webp",
+        query: "how+to+overhead+cable+tricep+extension",
+        cues: "Set rope high or mid. Step forward facing away from machine. Elbows up beside head. Extend forearms straight forward, squeezing triceps at full reach.",
+        why: "Full stretch on the long head of the triceps (largest tricep muscle)."
+      },
+      {
+        cat: "Push B",
+        name: "Serratus Cable Punches",
+        muscles: "★ Serratus Anterior",
+        img: cdn + "archer-push-ups-peak.webp",
+        query: "how+to+do+serratus+punches",
+        cues: "Hold cable handle at chest height facing away. Punch straight forward until arm is extended, then push forward an additional 2 inches through your shoulder blade.",
+        why: "★ MICRO-LINK: Directly activates serratus to glide the scapula forward.",
+        isMicro: true
+      },
+      {
+        cat: "Push B",
+        name: "Half-Kneeling Pallof Press",
+        muscles: "Core (Anti-Rotation)",
+        img: cdn + "cable-pallof-press-peak.webp",
+        query: "half+kneeling+pallof+press",
+        cues: "Drop inside knee onto cushion (outside leg up at 90°). Hold cable at chest, press straight out and hold 2s against rotational pull. Return to chest.",
+        why: "Locks pelvis completely in place so the hip joint cannot rotate or twist."
+      },
+
+      // LEGS B
+      {
+        cat: "Legs B",
+        name: "Dead-Mill Reverse Walking",
+        muscles: "Quads (VMO), Patellar Tendon, Synovial Fluid",
+        img: cdn + "incline-treadmill-walk-main.webp",
+        query: "backwards+treadmill+walking+kneesovertoes",
+        cues: "Leave treadmill completely turned OFF. Hold handrails for balance. Walk backwards by pushing the belt with your feet (toe-to-heel strike, driving quads).",
+        why: "Unmatched knee and hip rehab: forces blood & synovial fluid into joints with 0% joint compression."
+      },
+      {
+        cat: "Legs B",
+        name: "Romanian Deadlift (Dumbbells)",
+        muscles: "Hamstrings, Glutes",
+        img: cdn + "banded-romanian-deadlift-peak.webp",
+        query: "how+to+do+dumbbell+romanian+deadlift",
+        cues: "Hold dumbbells against front of thighs. Soft knee bend. Push hips back as if touching a wall behind you. STOP at knee level (do NOT go to floor). Drive hips forward.",
+        why: "Halt at knee level preserves hamstring training while avoiding deep hip impingement."
+      },
+      {
+        cat: "Legs B",
+        name: "Seated Leg Curls",
+        muscles: "Hamstrings (Lengthened Position)",
+        img: cdn + "seated-leg-curl-peak.webp",
+        query: "how+to+seated+leg+curl",
+        cues: "Thigh pad locked down firmly over quads. Curl heels down and under seat as far as possible. Hold 1s, allow slow 2s return.",
+        why: "Studies show seated leg curls produce greater hamstring hypertrophy than lying leg curls."
+      },
+      {
+        cat: "Legs B",
+        name: "Hip Adduction Machine",
+        muscles: "Adductors (Inner Thigh / Groin)",
+        img: cdn + "banded-standing-hip-adduction-peak.webp",
+        query: "how+to+use+hip+adduction+machine",
+        cues: "Pads on inside of knees. Spread legs wide, then squeeze knees together toward centerline under control. Hold 1s, slow controlled return.",
+        why: "Strengthens adductor magnus and stabilizes pelvis against lateral shift."
+      },
+      {
+        cat: "Legs B",
+        name: "Seated Banded Hip Internal Rotation",
+        muscles: "★ Gluteus Minimus & Anterior Medius",
+        img: cdn + "banded-clamshell-start.webp",
+        query: "seated+banded+hip+internal+rotation",
+        cues: "Sit on bench with resistance band looped around both ankles. Place yoga block or foam roller between knees. Keeping knees clamped on block, kick both ankles outward away from each other.",
+        why: "★ MICRO-LINK: Restores active internal rotation so the ball glides smoothly in the socket without pinching.",
+        isMicro: true
+      },
+      {
+        cat: "Legs B",
+        name: "Seated Calf Raises",
+        muscles: "Soleus (Deep Lower Calf)",
+        img: cdn + "seated-calf-raise-peak.webp",
+        query: "how+to+seated+calf+raise",
+        cues: "Knees bent at 90° with pad over lower thighs. Drop heels deep for a full stretch, press through balls of feet to full height.",
+        why: "Bent knee isolates the soleus muscle (which straight-leg calf raises cannot fully target)."
+      },
+      {
+        cat: "Legs B",
+        name: "Tibialis Wall Raises",
+        muscles: "★ Tibialis Anterior (Shins)",
+        img: cdn + "bodyweight-calf-raise-peak.webp",
+        query: "how+to+do+tibialis+raises+against+wall",
+        cues: "Back against wall, legs straight out. Lift toes upward toward shins as high as you can. Burn out for 15–20 reps.",
+        why: "★ MICRO-LINK: Decelerates foot strike and balances calf volume.",
+        isMicro: true
+      },
+      {
+        cat: "Legs B",
+        name: "Side Planks",
+        muscles: "Quadratus Lumborum, Obliques, Outer Hip",
+        img: cdn + "side-plank-leg-lift-hold-main.webp",
+        query: "how+to+do+side+plank+proper+form",
+        cues: "Lie on side on forearm. Stack feet. Lift hips off ground until body forms a straight line from ears to heels. Squeeze glutes and brace obliques.",
+        why: "Crucial lateral core endurance that shields lower back and pelvis."
+      },
+      // =========================================================================
+      // 🔵 PULL DAY ROUTINE
+      // =========================================================================
+      {
+        routineDay: "Pull Day",
+        cat: "Pull ☀️ Warmup",
+        name: "Cat-Cow Spine Lubrication",
+        muscles: "Lumbo-Pelvic Rhythm & Thoracic Spine",
+        img: cdn + "cat-cow-main.webp",
+        query: "how+to+cat+cow+proper+form",
+        cues: "Hands under shoulders, knees under hips. Inhale: gently drop belly, lift chest and tailbone (cow). Exhale: push floor away, dome upper back toward ceiling, tuck pelvis under (cat). Move vertebra by vertebra smoothly.",
+        why: "Restores segmental spinal and pelvic mobility without any axial load or hip socket pinching."
+      },
+      {
+        routineDay: "Pull Day",
+        cat: "Pull ☀️ Warmup",
+        name: "Thoracic Spine Openers (Open Books)",
+        muscles: "Mid-Back (T-Spine) Rotation & Ribcage Mobility",
+        img: cdn + "supine-spinal-twist-main.webp",
+        query: "side+lying+open+book+stretch+thoracic",
+        cues: "Lie on side with knees bent 90° stacked together. Reach bottom arm forward, sweep top arm up and open across ceiling toward floor behind you, following hand with eyes. Keep knees glued together.",
+        why: "If the mid-back is stiff, the hips and pelvis are forced to over-twist to compensate. Restoring T-spine rotation shields the hips."
+      },
+      {
+        routineDay: "Pull Day",
+        cat: "Pull ☀️ Warmup",
+        name: "Kneeling Wrist & Forearm Mobility Rocks",
+        muscles: "Wrist Flexors, Extensors & Carpal Tunnel",
+        img: cdn + "kneeling-wrist-stretch-main.webp",
+        query: "wrist+mobility+routine+for+lifters",
+        cues: "On hands and knees, place palms flat with fingers pointing backward toward knees. Gently rock hips back to stretch forearms. Reverse with fingers pointing away and rock forward.",
+        why: "Prepares the wrists and forearms for heavy pulling compounds with zero elbow or wrist strain."
+      },
+      {
+        routineDay: "Pull Day",
+        cat: "Pull ☀️ Warmup",
+        name: "Deadbugs (Deep Core Brace)",
+        muscles: "Deep Core & Anterior Pelvic Stability",
+        img: cdn + "dead-bug-hold-main.webp",
+        query: "how+to+do+deadbug+exercise",
+        cues: "Lie flat on back. Push lower back firmly into floor (no gap!). Arms straight up, knees at 90°. Slowly extend right arm overhead and left leg straight out. Return and alternate.",
+        why: "Primes abdominal brace so heavy rows and pulldowns don't wrench the lumbar spine or pelvis."
+      },
+      {
+        routineDay: "Pull Day",
+        cat: "Pull 🌙 Stretch",
+        name: "Banded / Pole Lat Stretch",
+        muscles: "Lats (Latissimus Dorsi) & Outer Ribcage",
+        img: cdn + "banded-lat-stretch-main.webp",
+        query: "banded+lat+stretch+proper+form",
+        cues: "Hold heavy resistance band (or upright gym rack) at head height with one hand. Step back, hinge at hips with soft knees, and let the band gently pull your arm and torso long. Breathe into the side body.",
+        why: "The lat attaches directly to the thoracolumbar fascia on the pelvis. Tight lats pull the pelvis into anterior tilt; lengthening them relieves hip and lower back strain."
+      },
+      {
+        routineDay: "Pull Day",
+        cat: "Pull 🌙 Stretch",
+        name: "Wide-Knee Bench Child’s Pose",
+        muscles: "Latissimus Dorsi & Lumbar Decompression",
+        img: cdn + "bench-childs-pose-main.webp",
+        query: "bench+childs+pose+lat+stretch",
+        cues: "Kneel on floor with knees wide, placing hands/forearms on a bench in front. Sink hips back toward heels while dropping head and chest between arms. Inhale deeply expanding lower back ribs.",
+        why: "Elevating hands on a bench maximizes lat decompression while wide knees allow the pelvis to drop without pinching the anterior hip capsule."
+      },
+      {
+        routineDay: "Pull Day",
+        cat: "Pull 🌙 Stretch",
+        name: "Doorway Bicep & Chest Opener",
+        muscles: "Biceps Brachii & Pectoralis Major",
+        img: cdn + "doorway-chest-stretch-main.webp",
+        query: "doorway+bicep+and+chest+stretch",
+        cues: "Stand in doorway. Place palm and inside of forearm flat against doorframe at shoulder height. Step forward gently and turn torso away to stretch bicep and chest.",
+        why: "Lengthens biceps and anterior shoulder after high-volume curls and rows."
+      },
+      {
+        routineDay: "Pull Day",
+        cat: "Pull 🌙 Stretch",
+        name: "Neck & Upper Trapezius Release",
+        muscles: "Upper Trapezius & Levator Scapulae",
+        img: cdn + "neck-side-stretch-main.webp",
+        query: "upper+trap+and+neck+stretch+relief",
+        cues: "Sit upright. Gently drop right ear toward right shoulder. Reach left fingertips down toward floor (or sit on left palm) to anchor the shoulder down. Rest right hand on head for gentle weight only.",
+        why: "De-escalates neck and upper shoulder tension accumulated from heavy rows, shrugs, and carries."
+      },
+
+      // =========================================================================
+      // 🔴 PUSH DAY ROUTINE
+      // =========================================================================
+      {
+        routineDay: "Push Day",
+        cat: "Push ☀️ Warmup",
+        name: "Cat-Cow Spine Lubrication",
+        muscles: "Thoracic Spine Extension & Scapular Motion",
+        img: cdn + "cat-cow-main.webp",
+        query: "how+to+cat+cow+proper+form",
+        cues: "On hands and knees, smoothly alternate between arching mid-back (cow) and rounding upper back toward ceiling (cat). Focus on spreading shoulder blades wide at top.",
+        why: "Frees up thoracic extension required for proper pressing angles without lower back arching."
+      },
+      {
+        routineDay: "Push Day",
+        cat: "Push ☀️ Warmup",
+        name: "Shoulder External Rotations (Light Band)",
+        muscles: "Rotator Cuff (Infraspinatus & Teres Minor)",
+        img: cdn + "cable-external-rotation-peak.webp",
+        query: "cable+shoulder+external+rotation+elbow+at+side",
+        cues: "Stand with elbow pinned tightly to side at 90°. Rotate forearm outward away from stomach against light band or cable. Smooth, controlled reps.",
+        why: "Centrates the humeral head in the shoulder socket, preventing subacromial impingement during pressing."
+      },
+      {
+        routineDay: "Push Day",
+        cat: "Push ☀️ Warmup",
+        name: "Push-Up Plus / Scapular Protraction",
+        muscles: "Serratus Anterior & Scapular Stability",
+        img: cdn + "archer-push-ups-peak.webp",
+        query: "how+to+do+push+up+plus+for+serratus",
+        cues: "In a push-up or high plank position with arms locked straight. Push upper back toward ceiling by spreading shoulder blades wide apart. Hold 2s, sink back without bending elbows.",
+        why: "Primes the serratus anterior to upwardly rotate the scapula during overhead and incline presses."
+      },
+      {
+        routineDay: "Push Day",
+        cat: "Push ☀️ Warmup",
+        name: "Half-Kneeling Hip Flexor Rocks (Glute Tuck)",
+        muscles: "Anterior Pelvic Stability & Hip Capsule",
+        img: cdn + "half-kneeling-hip-flexor-rock-peak.webp",
+        query: "half+kneeling+hip+flexor+rock+glute+tuck",
+        cues: "Half-kneeling with back knee cushioned. Squeeze back glute hard and tuck tailbone under (posterior tilt). Rock forward just 2 inches. Feel stretch in front hip.",
+        why: "Stabilizes the pelvis and lumbo-sacral junction so you don't hyperextend your injured hips on bench arch or overhead press."
+      },
+      {
+        routineDay: "Push Day",
+        cat: "Push 🌙 Stretch",
+        name: "Doorway Chest & Anterior Delt Stretch",
+        muscles: "Pectoralis Major & Anterior Deltoid",
+        img: cdn + "doorway-chest-stretch-main.webp",
+        query: "doorway+pec+stretch+proper+form",
+        cues: "Stand in doorway. Forearm against frame at 90°, elbow at shoulder height. Step forward gently with one foot, rotate chest away. Clean chest stretch.",
+        why: "Reverses forward rounded shoulder posture from benching; opens the anterior kinetic chain."
+      },
+      {
+        routineDay: "Push Day",
+        cat: "Push 🌙 Stretch",
+        name: "Overhead Triceps & Lat Stretch",
+        muscles: "Triceps (Long Head) & Latissimus",
+        img: cdn + "banded-triceps-stretch-main.webp",
+        query: "overhead+tricep+stretch+proper+form",
+        cues: "Reach one arm overhead, bend elbow to touch upper back. Use other hand to gently guide elbow backward. Keep ribs down and core braced.",
+        why: "Restores resting length to the long head of the triceps after heavy extensions and dips."
+      },
+      {
+        routineDay: "Push Day",
+        cat: "Push 🌙 Stretch",
+        name: "Cross-Body Shoulder Stretch",
+        muscles: "Posterior Deltoid & Posterior Capsule",
+        img: cdn + "cross-body-shoulder-stretch-main.webp",
+        query: "cross+body+shoulder+stretch+proper+form",
+        cues: "Bring one arm straight across chest at shoulder height. Hook opposite forearm under elbow and gently pull arm closer to chest. Keep shoulder blade pulled down.",
+        why: "Relieves posterior capsule tightness which can push the shoulder forward out of alignment."
+      },
+      {
+        routineDay: "Push Day",
+        cat: "Push 🌙 Stretch",
+        name: "Neck & Upper Trapezius Release",
+        muscles: "Upper Trapezius & Levator Scapulae",
+        img: cdn + "neck-side-stretch-main.webp",
+        query: "upper+trap+and+neck+stretch+relief",
+        cues: "Drop ear toward shoulder, reach opposite hand down to anchor shoulder blade. Gentle stretch only.",
+        why: "Releases upper neck and shoulder tension accumulated from overhead pressing and lateral raises."
+      },
+
+      // =========================================================================
+      // 🟢 LEG DAY ROUTINE (HIP-PROTECTED)
+      // =========================================================================
+      {
+        routineDay: "Leg Day",
+        cat: "Leg ☀️ Warmup",
+        name: "Quadruped Wide-Knee Rockbacks",
+        muscles: "Posterior Hip Capsule Decompression",
+        img: cdn + "childs-pose-main.webp",
+        query: "quadruped+rockback+hip+mobility",
+        cues: "On hands and knees, take knees comfortably wide (outside hips) with big toes touching. Keep spine flat. Slowly glide hips back toward heels. Pause 2s, glide forward.",
+        why: "CRITICAL FOR HIP: Wide knees clear the bony acetabular rim, allowing deep hip flexion without front groin pinching."
+      },
+      {
+        routineDay: "Leg Day",
+        cat: "Leg ☀️ Warmup",
+        name: "Glute Bridge Activation Pulses",
+        muscles: "Gluteus Maximus & Hip Flexor Reciprocal Inhibition",
+        img: cdn + "glute-bridge-peak.webp",
+        query: "how+to+do+glute+bridges+proper+form",
+        cues: "Lie on back, knees bent, feet flat hip-width apart. Drive through heels to lift hips until thighs and torso form a straight line. Squeeze glutes aggressively at top. Pause 2s.",
+        why: "Wakes up dormant glutes and creates 'reciprocal inhibition,' signaling chronically tight hip flexors to instantly relax."
+      },
+      {
+        routineDay: "Leg Day",
+        cat: "Leg ☀️ Warmup",
+        name: "Half-Kneeling Hip Flexor Rocks (Tucked Pelvis)",
+        muscles: "Anterior Hip Capsule, Psoas & Rectus Femoris",
+        img: cdn + "half-kneeling-hip-flexor-rock-peak.webp",
+        query: "half+kneeling+hip+flexor+rock+glute+tuck",
+        cues: "Half-kneeling with cushion under back knee. Squeeze kneeling glute hard and tuck tailbone under (posterior tilt). Gently rock forward 2-3 inches. Do NOT arch lower back.",
+        why: "Tucking the pelvis stretches the psoas and anterior capsule safely without causing the femoral head to shear forward into the labrum."
+      },
+      {
+        routineDay: "Leg Day",
+        cat: "Leg ☀️ Warmup",
+        name: "Ankle Dorsiflexion Bench Rocks",
+        muscles: "Talocrural Joint (Ankle Dorsiflexion) & Achilles",
+        img: cdn + "bench-ankle-stretch-main.webp",
+        query: "ankle+dorsiflexion+mobility+rocks",
+        cues: "Place foot on bench or floor ~4 inches from wall. Keeping heel glued firmly down, drive knee forward over 2nd toe as far as possible without heel lifting. Hold 2s, return.",
+        why: "Stiff ankles force compensatory hip internal rotation and knee valgus. Restoring ankle mobility protects the hip socket during gait."
+      },
+      {
+        routineDay: "Leg Day",
+        cat: "Leg ☀️ Warmup",
+        name: "Banded Clamshells (Rotator Cuff of Hip)",
+        muscles: "Deep 6 Hip External Rotators & Glute Medius",
+        img: cdn + "banded-clamshell-peak.webp",
+        query: "how+to+do+clamshells+exercise+glutes",
+        cues: "Lie on side with loop band above knees. Knees bent 45°, feet glued together. Keeping feet touching, rotate top knee open toward ceiling without pelvis rolling back.",
+        why: "Primes the deep external rotators (gemelli, obturators) to keep the ball centered in the socket before leg training."
+      },
+      {
+        routineDay: "Leg Day",
+        cat: "Leg 🌙 Stretch",
+        name: "Figure-4 Glute Stretch (Supine on Back / Bench)",
+        muscles: "Piriformis, Gluteus Medius & Deep Rotators",
+        img: cdn + "bench-figure-4-glute-stretch-main.webp",
+        query: "figure+4+stretch+on+back+proper+form",
+        cues: "Lie on back (or sit on bench). Cross right ankle over left knee to make a '4'. Gently pull left thigh toward chest until stretch is felt in outer right glute. Neck relaxed.",
+        why: "100x safer than Pigeon Pose! Pigeon crushes an injured labrum under full body weight. Figure-4 gives 100% control with zero groin impingement."
+      },
+      {
+        routineDay: "Leg Day",
+        cat: "Leg 🌙 Stretch",
+        name: "Bench Couch Stretch (Glute Squeezed)",
+        muscles: "Rectus Femoris, Psoas & Anterior Pelvic Tilt Relief",
+        img: cdn + "bench-couch-stretch-main.webp",
+        query: "how+to+do+couch+stretch+without+arching+back",
+        cues: "Kneel on cushion with back foot resting up on bench/wall. Step other foot forward at 90°. Squeeze kneeling glute hard and pull belly button in to flatten lower back. Sit upright.",
+        why: "Releases chronic anterior pelvic tilt and decompresses the hip joint by lengthening the two-joint rectus femoris muscle safely."
+      },
+      {
+        routineDay: "Leg Day",
+        cat: "Leg 🌙 Stretch",
+        name: "Standing / Bench Calf & Achilles Stretch",
+        muscles: "Gastrocnemius, Soleus & Plantar Fascia",
+        img: cdn + "standing-calf-stretch-main.webp",
+        query: "proper+standing+calf+stretch+wall",
+        cues: "Face wall or bench. Step back leg straight back with heel pinned to floor and toes pointing straight ahead. Lean forward onto front knee while keeping back leg locked straight.",
+        why: "Lengthens calves after high-volume walking and raises; restores ankle dorsiflexion which absorbs walking impact away from the hip."
+      },
+      {
+        routineDay: "Leg Day",
+        cat: "Leg 🌙 Stretch",
+        name: "Gentle Seated Butterfly (Elevated Pelvis)",
+        muscles: "Adductors (Inner Thigh / Groin) & Pelvic Floor",
+        img: cdn + "butterfly-stretch-main.webp",
+        query: "seated+butterfly+stretch+proper+form",
+        cues: "Sit tall on yoga block or cushion. Soles of feet together, knees dropping outward. Hold ankles, keep chest tall. Allow gravity to open inner thighs naturally—never force down.",
+        why: "Sitting on a cushion tilts the pelvis forward neutrally, allowing adductors to stretch without rounding the lower back or jamming hip joints."
+      },
+
+      // =========================================================================
+      // ⭐ REST DAY FULL-BODY MASTER ROUTINE (15–20 Mins Hip Rehab & Decompression)
+      // =========================================================================
+      {
+        routineDay: "Rest Day Master",
+        cat: "⭐ Rest Flow",
+        name: "Step 1: Cat-Cow Spine Lubrication",
+        muscles: "Lumbo-Pelvic Rhythm & Full Spine",
+        img: cdn + "cat-cow-main.webp",
+        query: "how+to+cat+cow+proper+form",
+        cues: "Hands under shoulders, knees under hips. Smoothly flow between Cow (belly drops, chest lifts) and Cat (dome spine toward ceiling, tailbone tucks). Breathe deeply for 10 slow cycles.",
+        why: "Decompresses the entire spinal column and restores pelvic tilt control with zero joint stress."
+      },
+      {
+        routineDay: "Rest Day Master",
+        cat: "⭐ Rest Flow",
+        name: "Step 2: Bird-Dog Anti-Rotational Hold",
+        muscles: "Contralateral Posterior Chain & Deep Core",
+        img: cdn + "bird-dog-hold-main.webp",
+        query: "how+to+bird+dog+exercise+proper+form",
+        cues: "Reach right arm forward and left heel straight back. Squeeze glute to lift leg. Keep hips and shoulders perfectly square to floor. Hold 3s, do 8 reps/side.",
+        why: "Teaches the glute and opposite lat to stabilize the pelvis and spine without rotational torque."
+      },
+      {
+        routineDay: "Rest Day Master",
+        cat: "⭐ Rest Flow",
+        name: "Step 3: Quadruped Wide-Knee Hip Rockbacks",
+        muscles: "Posterior Hip Capsule & Adductor Mobility",
+        img: cdn + "childs-pose-main.webp",
+        query: "quadruped+rockback+hip+mobility",
+        cues: "Knees wide, big toes touching. Glide hips back toward heels. Feel space opening in the back of your hip joints. Stop before lower back rounds. 12 smooth rocks.",
+        why: "Gently glides the femoral head posteriorly in the acetabular cup, creating room in the front joint crease."
+      },
+      {
+        routineDay: "Rest Day Master",
+        cat: "⭐ Rest Flow",
+        name: "Step 4: Half-Kneeling Hip Flexor Rocks (Tucked)",
+        muscles: "Anterior Capsule, Psoas & Hip Flexors",
+        img: cdn + "half-kneeling-hip-flexor-rock-peak.webp",
+        query: "half+kneeling+hip+flexor+rock+glute+tuck",
+        cues: "Half-kneeling on cushion. Posteriorly tilt pelvis (tuck tailbone under like a scared dog). Gently glide forward 2 inches. Feel clean front hip stretch. 10 rocks/side.",
+        why: "Unlocks chronic hip flexor tightness from sitting without compressing the anterior labrum."
+      },
+      {
+        routineDay: "Rest Day Master",
+        cat: "⭐ Rest Flow",
+        name: "Step 5: Thoracic Spine Open Books (Side-Lying)",
+        muscles: "Mid-Back (T-Spine) Rotation & Ribcage",
+        img: cdn + "supine-spinal-twist-main.webp",
+        query: "side+lying+open+book+stretch+thoracic",
+        cues: "Lie on side with knees bent 90° and stacked. Sweep top arm across ceiling to floor behind you. Follow hand with eyes. Keep knees glued together. 10 reps/side.",
+        why: "Restores 3D thoracic rotation, preventing rotational compensation and shearing forces at the hip."
+      },
+      {
+        routineDay: "Rest Day Master",
+        cat: "⭐ Rest Flow",
+        name: "Step 6: Figure-4 Glute Stretch (Supine on Back)",
+        muscles: "Piriformis, Gluteus Medius & Outer Hip",
+        img: cdn + "bench-figure-4-glute-stretch-main.webp",
+        query: "figure+4+stretch+on+back+proper+form",
+        cues: "Lie on back. Ankle crossed over opposite knee. Gently hug bottom thigh toward chest until clean outer glute stretch is achieved. Relax head and neck. Hold 60s per side.",
+        why: "Releases deep rotators that cause piriformis syndrome and sciatica with zero anterior impingement."
+      },
+      {
+        routineDay: "Rest Day Master",
+        cat: "⭐ Rest Flow",
+        name: "Step 7: Bench / Wall Couch Stretch",
+        muscles: "Rectus Femoris, Psoas & Quad Length",
+        img: cdn + "bench-couch-stretch-main.webp",
+        query: "how+to+do+couch+stretch+without+arching+back",
+        cues: "Back foot propped up on bench/couch. Front foot forward. Squeeze rear glute and sit tall. Inhale into belly, exhale relaxing deeper into stretch. Hold 60s per side.",
+        why: "Restores true tissue length to the quads and hip flexors, neutralizing anterior pelvic tilt."
+      },
+      {
+        routineDay: "Rest Day Master",
+        cat: "⭐ Rest Flow",
+        name: "Step 8: Wide-Knee Bench Child’s Pose",
+        muscles: "Latissimus Dorsi & Lumbar Decompression",
+        img: cdn + "bench-childs-pose-main.webp",
+        query: "bench+childs+pose+lat+stretch",
+        cues: "Knees wide, arms on bench, sink hips to heels. Drop head between arms. Inhale deeply through nose expanding lower ribs, exhale letting spine melt down. Hold 90 seconds.",
+        why: "Decompresses the entire posterior kinetic chain and down-regulates the central nervous system."
+      },
+      {
+        routineDay: "Rest Day Master",
+        cat: "⭐ Rest Flow",
+        name: "Step 9: Doorway Chest & Shoulder Opener",
+        muscles: "Pectoralis Major & Anterior Deltoid",
+        img: cdn + "doorway-chest-stretch-main.webp",
+        query: "doorway+pec+stretch+proper+form",
+        cues: "Forearm against doorframe at shoulder height. Step through and turn away. Breathe into chest. Hold 45 seconds per side.",
+        why: "Opens tight chest tissues, reverses rounded shoulders, and improves diaphragm breathing."
+      },
+      {
+        routineDay: "Rest Day Master",
+        cat: "⭐ Rest Flow",
+        name: "Step 10: Standing / Bench Calf & Ankle Stretch",
+        muscles: "Gastrocnemius, Soleus & Plantar Fascia",
+        img: cdn + "standing-calf-stretch-main.webp",
+        query: "proper+standing+calf+stretch+wall",
+        cues: "Heel flat on floor, back leg straight. Lean forward into wall/bench until deep calf stretch is felt. Hold 45 seconds per side.",
+        why: "Restores ankle dorsiflexion, ensuring your feet and ankles absorb ground impact instead of your hips."
+      }
+    ];
+
+    function renderCards(list) {
+      const grid = document.getElementById("exerciseGrid");
+      grid.innerHTML = "";
+      list.forEach(ex => {
+        const filename = ex.img.split('/').pop();
+        const localSrc = `./images/${filename}`;
+        const fallbackSrc = ex.img;
+        const card = document.createElement("div");
+        card.className = `card ${ex.isMicro ? 'is-micro' : ''}`;
+        card.innerHTML = `
+          <div class="card-img-container">
+            <span class="card-tag">${ex.cat}</span>
+            ${ex.isMicro ? '<span class="micro-pill">★ Micro-Link</span>' : ''}
+            <img class="card-img" src="${localSrc}" onerror="this.onerror=null; this.src='${fallbackSrc}';" alt="${ex.name}" loading="lazy">
+          </div>
+          <div class="card-body">
+            <div class="card-title">${ex.name}</div>
+            <div class="card-muscles">Target: ${ex.muscles}</div>
+            <div class="card-cues"><strong>Setup & Form:</strong> ${ex.cues}</div>
+            <div class="card-why"><strong>Why:</strong> ${ex.why}</div>
+            <a class="btn-video" href="https://www.youtube.com/results?search_query=${encodeURIComponent(ex.query)}" target="_blank">
+              ▶ Watch Video Tutorial
+            </a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterCategory(cat, btn) {
+      document.querySelectorAll(".filter-bar .filter-btn").forEach(b => b.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+      if (cat === 'all') {
+        renderCards(exercises);
+      } else if (cat === 'micro') {
+        renderCards(exercises.filter(e => e.isMicro));
+      } else {
+        renderCards(exercises.filter(e => e.cat === cat || (e.routineDay && e.routineDay === cat)));
+      }
+    }
+
+    renderCards(exercises);
+  </script>
+</body>
+</html>
